@@ -63,30 +63,51 @@ The project is structured in modular phases:
 
 ```text
 Insurance Claims Operations Analytics/
-├── .venv/                         # Preserved Python virtual environment
+├── .devcontainer/
+│   ├── .env                         # Database credentials (excluded from Git)
+│   ├── Dockerfile                   # Development container configuration
+│   ├── devcontainer.json            # VS Code Dev Container configuration
+│   └── docker-compose.yml           # Application and PostgreSQL services
+├── .github/
+│   └── dependabot.yml               # Automated dependency updates
+├── .vscode/
+│   └── settings.json                # VS Code workspace settings
 ├── data/
-│   ├── raw/                       # Immutable source dataset
+│   ├── raw/                         # Immutable source dataset
 │   │   └── process_log.csv
-│   └── processed/                 # Cleaned and aggregated operational datasets
+│   └── processed/                   # Cleaned and aggregated datasets
 │       ├── cleaned_process_log.csv
 │       └── claim_summary.csv
-├── EDA/                           # Dedicated exploratory data analysis module
-│   ├── claims_operations_eda.ipynb # Comprehensive, reproducible EDA report notebook
-│   ├── data_exploration.ipynb     # In-sync reproducible exploratory notebook
-│   └── archive/                   # Preserved original exploratory notebook
-│       └── data_exploration_initial.ipynb
-├── sql/                           # Relational modeling & advanced SQL analytics suite
-│   ├── 00_schema_and_ingestion.sql          # DDL, relational constraints & bulk COPY
-│   ├── 01_window_functions_deep_dive.sql    # Sequencing, ranking, lead/lag, rolling & NTILE
-│   ├── 02_ctes_and_process_mining.sql       # Multi-stage CTEs, transition matrices & rework loops
-│   ├── 03_cohort_and_temporal_trends.sql    # Time series, monthly MoM/YoY & SLA aging tiers
-│   ├── 04_advanced_aggregations_and_kpis.sql# GROUPING SETS, ROLLUP, CUBE, FILTER & Z-scores
-│   └── 05_reporting_views.sql               # Semantic reporting layer for BI (Power BI/Tableau)
-├── reports/                       # Exported figures and analytics deliverables
-│   └── figures/                   # Standalone 300 DPI charts (fig1 through fig9)
-├── .gitignore                     # Git configuration ignoring virtualenv & caches
-├── README.md                      # Comprehensive project documentation
-└── requirements.txt               # Pinned dependencies for reproducible execution
+├── EDA/                             # Exploratory data analysis
+│   ├── archive/
+│   │   └── data_exploration_initial.ipynb
+│   └── claims_operations_eda.ipynb  # Comprehensive EDA notebook
+├── reports/                         # Exported analytics deliverables
+│   ├── claims_operations_eda_report.pdf
+│   └── figures/                     # Standalone visualizations
+│       ├── fig1_events_per_claim_dist.png
+│       ├── fig2_claims_by_damage_category.png
+│       ├── fig3_state_by_damage_heatmap.png
+│       ├── fig4_preceding_intervals_by_state.png
+│       ├── fig5_claim_duration_by_damage.png
+│       ├── fig6_correlation_matrices.png
+│       ├── fig7_document_pages_and_duration.png
+│       ├── fig8_transition_probability_matrix.png
+│       ├── fig8_transition_probability_matrix_filtered.png
+│       ├── fig9_top_transition_latencies.png
+│       ├── fig9_transition_frequency_matrix.png
+│       ├── fig9_transition_probability_frequency_matrix.png
+│       └── transition_matrix.png
+├── sql/                             # PostgreSQL analytics
+│   ├── 00_schema_and_ingestion.sql
+│   ├── 01_window_functions_deep_dive.sql
+│   ├── 02_ctes_and_process_mining.sql
+│   ├── 03_cohort_and_temporal_trends.sql
+│   ├── 04_advanced_aggregations_and_kpis.sql
+│   └── 05_reporting_views.sql
+├── .gitignore                       # Excludes virtual environments, caches, and secrets
+├── README.md                        # Project documentation
+└── requirements.txt                 # Pinned Python dependencies
 ```
 
 ---

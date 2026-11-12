@@ -1,0 +1,25 @@
+# Virtual Env
+.venv/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook Checkpoints & Cache
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Scratch and Temporary Files
+scratch/
+*.log
+*.session.sql
+
+# Secrets and Environment Config
+.env

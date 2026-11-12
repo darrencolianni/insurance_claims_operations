@@ -115,33 +115,44 @@ Insurance Claims Operations Analytics/
 ## Environment Setup & Reproducibility
 
 ### 1. Prerequisites
-- Python 3.10+ (configured on Python 3.13)
-- PowerShell (Windows) or Bash (macOS/Linux)
+- Docker Desktop with WSL 2 integration (Windows).
+- Visual Studio Code with the Dev Containers, Python, and Jupyter extensions.
 
-### 2. Activate Virtual Environment
-```powershell
-# Windows PowerShell
-.venv\Scripts\Activate.ps1
-```
+### 2. Open the Development Container
+1. Open the project folder in VS Code.
+2. Press `Ctrl+Shift+P`.
+3. Select **Dev Containers: Reopen in Container**.
+4. The container automatically installs the pinned Python dependencies and Chromium during its initial build.
 
-### 3. Install Pinned Dependencies
-```powershell
-pip install -r requirements.txt
-```
+### 3. Run the EDA Notebook
+Open `EDA/claims_operations_eda.ipynb` directly in VS Code and execute the cells sequentially using the container's Python kernel.
 
-### 4. Running the EDA Notebook
-Open Jupyter Lab or Jupyter Notebook:
-```powershell
-jupyter lab
-```
-Navigate to `EDA/claims_operations_eda.ipynb` and execute cells sequentially. The notebook dynamically resolves paths relative to the project root or local `EDA/` folder.
+### 4. View the PDF Report
+The completed EDA report is available at `reports/claims_operations_eda_report.pdf`.
 
-### 5. Headless PDF Export (No LaTeX Required)
-The notebook is configured for automated PDF export via `jupyter nbconvert` using its WebPDF engine (powered by Playwright and headless Chromium):
-```powershell
-jupyter nbconvert --to webpdf --allow-chromium-download EDA/claims_operations_eda.ipynb
+### 5. SQL: Database Execution & Reproducibility
+
+Execute the SQL scripts sequentially from the integrated terminal inside the Dev Container. PostgreSQL runs as a separate Docker Compose service and is accessible at `localhost`.
+
+```bash
+# 1. Create the database schema and ingest the source data
+psql -h localhost -U claims_app -d claims_analytics -f sql/00_schema_and_ingestion.sql
+
+# 2. Execute window functions: sequencing, ranking, lead/lag, rolling calculations, and NTILE
+psql -h localhost -U claims_app -d claims_analytics -f sql/01_window_functions_deep_dive.sql
+
+# 3. Execute CTEs and process mining: transition matrices and rework loops
+psql -h localhost -U claims_app -d claims_analytics -f sql/02_ctes_and_process_mining.sql
+
+# 4. Analyze cohort and temporal trends: time series, monthly changes, and SLA aging tiers
+psql -h localhost -U claims_app -d claims_analytics -f sql/03_cohort_and_temporal_trends.sql
+
+# 5. Calculate advanced aggregations and KPIs: GROUPING SETS, ROLLUP, CUBE, FILTER, and Z-scores
+psql -h localhost -U claims_app -d claims_analytics -f sql/04_advanced_aggregations_and_kpis.sql
+
+# 6. Deploy semantic reporting views for Power BI and Tableau
+psql -h localhost -U claims_app -d claims_analytics -f sql/05_reporting_views.sql
 ```
-*(Alternatively, uncomment and execute the designated cell at the bottom of the notebook.)*
 
 ---
 
@@ -247,26 +258,4 @@ The [`sql/`](sql/) directory implements the relational modeling and analytical q
 5. **Document Burden Scaling:**  
    Claims with 1–5 pages resolve with a median of **0.99 days**, 6–10 pages take **4.30 days**, 11–20 pages take **13.71 days**, and 21+ pages take **19.97 days**. Page count exhibits a strong positive correlation with touchpoints ($r = 0.54 - 0.69$).
 
----
 
-### Database Execution & Reproducibility
-
-```bash
-# 1. Run schema creation and ingestion
-docker exec -i devcontainer-db-1 psql -U postgres -d claims_analytics < sql/00_schema_and_ingestion.sql
-
-# 2. Run window functions suite
-docker exec -i devcontainer-db-1 psql -U postgres -d claims_analytics < sql/01_window_functions_deep_dive.sql
-
-# 3. Run CTEs & process mining suite
-docker exec -i devcontainer-db-1 psql -U postgres -d claims_analytics < sql/02_ctes_and_process_mining.sql
-
-# 4. Run temporal & cohort trends suite
-docker exec -i devcontainer-db-1 psql -U postgres -d claims_analytics < sql/03_cohort_and_temporal_trends.sql
-
-# 5. Run advanced aggregations & KPIs suite
-docker exec -i devcontainer-db-1 psql -U postgres -d claims_analytics < sql/04_advanced_aggregations_and_kpis.sql
-
-# 6. Deploy semantic reporting views for BI tools
-docker exec -i devcontainer-db-1 psql -U postgres -d claims_analytics < sql/05_reporting_views.sql
-```

@@ -1,261 +1,132 @@
 # Insurance Claims Operations Analytics
 
-An end-to-end operational analytics portfolio project evaluating claims processing efficiency, workflow transitions, and lifecycle durations using real-world motor insurance process event logs.
-
----
-
 ## Project Overview
 
-This project simulates the analytical workflows of a **Claims Department Data Analyst** within a property & casualty (P&C) insurer. The primary operational objective is to examine cycle-time distributions, analyze workflow transitions between process states, evaluate the empirical relationships between document volume and lifecycle duration, and identify potential areas for operational investigation.
+An end-to-end analytics project examining motor insurance claims operations using event-log data. The project uses Python, PostgreSQL, and Power BI to analyze claim volumes, processing times, workflow transitions, document requirements, and operational bottlenecks.
 
-The project is structured in modular phases:
-1. **Phase 1: Exploratory Data Analysis (EDA) in Python** *(Completed)*
-2. **Phase 2: Relational Database Modeling & Advanced SQL Analytics** *(Completed)*
-3. **Phase 3: Executive BI Dashboards (Power BI / Tableau)** *(Upcoming)*
+## Dataset
 
----
+**Source:** Levich, Sergej (2023). *Claims Management Log Dataset with Digital Documents*. Mendeley Data, V1. https://doi.org/10.17632/kdcspz6xtn.1
 
-## Dataset & Provenance
+- 32,058 process events
+- 5,131 claims
+- Observation period: January 2014–January 2020
+- Source file: `data/raw/process_log.csv`
 
-- **Source:** Levich, Sergej (2023), *Claims Management Log Dataset with Digital Documents*, Mendeley Data, Version 1.  
-  [https://doi.org/10.17632/kdcspz6xtn.1](https://doi.org/10.17632/kdcspz6xtn.1)
-- **Domain:** Historical operational event logs from a German motor insurance company.
-- **Volume:** 5,131 distinct insurance claims (`instance_id`), comprising 32,058 recorded process events.
-- **Coverage Window:** January 2014 through January 2020.
+Only `process_log.csv` is used in this project.
 
-### Schema Overview
-
-| Field Name | Type | Description |
-|---|---|---|
-| `timestamp` | UTC Timestamp | Event occurrence timestamp (ISO 8601 parsed to `datetime64[ns, UTC]`). |
-| `instance_id` | Integer | Unique identifier for each claim file. |
-| `state` | Integer | Numeric identifier for the process event stage. |
-| `state_name` | String | Descriptive name of the process state (12 distinct categories). |
-| `type` | Integer | Numeric damage category code. |
-| `type_name` | String | Descriptive damage category (6 distinct categories). |
-| `file_name` | String | Distinct document filename attachment (where applicable; 16,132 unique files). |
-| `n_pages` | Float | Number of pages in the attached document (1 to 10 pages; mean 2.43). |
-| `time_since_last_event` | Integer | Elapsed interval in seconds since the immediately preceding event for that claim. |
-| `log_time_since_last_event`| Float | Natural log transform: $\ln(\text{seconds} + 1)$. |
-
----
-
-## Important Analytical Scope & Data Limitations
-
-1. **Process-Event Log vs. Financial Claims Database:**  
-   The dataset captures operational event logs. It does **not** contain claim indemnity payments, loss reserves, deductible amounts, adjuster identities, adjuster caseloads, underwriting profitability, or verified fraud labels. Metrics regarding loss ratios or adjuster productivity cannot be imputed.
-2. **Event-Level vs. Claim-Level Observations:**  
-   Event logs record discrete system interactions (32,058 rows across 5,131 claims; median 6.0 events/claim). Aggregations must explicitly distinguish between event frequencies and unique claim volumes.
-3. **Preceding Event Interval vs. Stage Duration:**  
-   `time_since_last_event` records the elapsed time since the *prior* event. Grouping this interval by the *current* event state reflects the interval elapsed prior to recording that state, **not** the operational duration spent actively working inside that state.
-4. **Recorded Lifecycle Duration vs. Actual Settlement/Closure:**  
-   Lifecycle duration is calculated as the span between the first and last recorded events for an `instance_id`. It must **not** be equated with final legal settlement or claim closure. Furthermore, claims terminating in states other than payment or audit cannot be assumed to be open at the observation cutoff without explicit metadata.
-5. **Observational Gaps in Long-Duration Lifecycles:**  
-   Claims spanning >1 year are characterized by lengthy gaps between recorded events (hundreds of days with no logged events) rather than active, continuous processing delays.
-6. **Document Metadata Scope:**  
-   Missing values in `file_name` and `n_pages` indicate that no digital document attachment was logged for that specific event; it does not establish that the entire claim was document-free in physical reality.
-7. **Descriptive Empirical Findings:**  
-   Correlations and group differences represent empirical associations within observational process logs. They do not demonstrate causal mechanisms.
-
----
-
-## Project Structure
+## Repository Structure
 
 ```text
-Insurance Claims Operations Analytics/
+.
 ├── .devcontainer/
-│   ├── .env                         # Database credentials (excluded from Git)
-│   ├── Dockerfile                   # Development container configuration
-│   ├── devcontainer.json            # VS Code Dev Container configuration
-│   └── docker-compose.yml           # Application and PostgreSQL services
+│   ├── .env
+│   ├── Dockerfile
+│   ├── devcontainer.json
+│   └── docker-compose.yml
 ├── .github/
-│   └── dependabot.yml               # Automated dependency updates
+│   └── dependabot.yml
 ├── .vscode/
-│   └── settings.json                # VS Code workspace settings
+│   └── settings.json
 ├── data/
-│   ├── raw/                         # Immutable source dataset
+│   ├── raw/
 │   │   └── process_log.csv
-│   └── processed/                   # Cleaned and aggregated datasets
-│       ├── cleaned_process_log.csv
-│       └── claim_summary.csv
-├── EDA/                             # Exploratory data analysis
-│   ├── archive/
-│   │   └── data_exploration_initial.ipynb
-│   └── claims_operations_eda.ipynb  # Comprehensive EDA notebook
-├── reports/                         # Exported analytics deliverables
+│   └── processed/
+│       ├── claim_summary.csv
+│       └── cleaned_process_log.csv
+├── notebooks/
+│   └── claims_operations_eda.ipynb
+├── power_bi/
+│   └── claims_operations_dashboard.pbix
+├── reports/
 │   ├── claims_operations_eda_report.pdf
-│   └── figures/                     # Standalone visualizations
-│       ├── fig1_events_per_claim_dist.png
-│       ├── fig2_claims_by_damage_category.png
-│       ├── fig3_state_by_damage_heatmap.png
-│       ├── fig4_preceding_intervals_by_state.png
-│       ├── fig5_claim_duration_by_damage.png
-│       ├── fig6_correlation_matrices.png
-│       ├── fig7_document_pages_and_duration.png
-│       ├── fig8_transition_probability_matrix.png
-│       ├── fig8_transition_probability_matrix_filtered.png
-│       ├── fig9_top_transition_latencies.png
-│       ├── fig9_transition_frequency_matrix.png
-│       ├── fig9_transition_probability_frequency_matrix.png
-│       └── transition_matrix.png
-├── sql/                             # PostgreSQL analytics
+│   └── sql_outputs/
+│       ├── 01_window_functions_deep_dive.txt
+│       ├── 02_ctes_and_process_mining.txt
+│       ├── 03_cohort_and_temporal_trends.txt
+│       ├── 04_advanced_aggregations_and_kpis.txt
+│       └── 05_reporting_views.txt
+├── sql/
 │   ├── 00_schema_and_ingestion.sql
 │   ├── 01_window_functions_deep_dive.sql
 │   ├── 02_ctes_and_process_mining.sql
 │   ├── 03_cohort_and_temporal_trends.sql
 │   ├── 04_advanced_aggregations_and_kpis.sql
 │   └── 05_reporting_views.sql
-├── .gitignore                       # Excludes virtual environments, caches, and secrets
-├── README.md                        # Project documentation
-└── requirements.txt                 # Pinned Python dependencies
+├── .gitignore
+├── README.md
+└── requirements.txt
 ```
 
----
+## Technology Stack
 
-## Environment Setup & Reproducibility
+- **Python:** data cleaning, aggregation, exploratory data analysis, and statistical testing.
+- **PostgreSQL:** workflow analysis, process transitions, temporal analysis, advanced aggregations, and reporting views.
+- **Power BI:** interactive dashboard and operational reporting.
+- **Docker / VS Code Dev Containers:** reproducible development environment.
+- **Jupyter Notebook:** reproducible analysis and reporting.
 
-### 1. Prerequisites
-- Docker Desktop with WSL 2 integration (Windows).
-- Visual Studio Code with the Dev Containers, Python, and Jupyter extensions.
+## Exploratory Data Analysis
 
-### 2. Open the Development Container
-1. Open the project folder in VS Code.
-2. Press `Ctrl+Shift+P`.
-3. Select **Dev Containers: Reopen in Container**.
-4. The container automatically installs the pinned Python dependencies and Chromium during its initial build.
+The Python analysis examines claim characteristics, lifecycle durations, document volumes, and relationships between damage types and processing outcomes.
 
-### 3. Run the EDA Notebook
-Open `EDA/claims_operations_eda.ipynb` directly in VS Code and execute the cells sequentially using the container's Python kernel.
+Key findings:
 
-### 4. View the PDF Report
-The completed EDA report is available at `reports/claims_operations_eda_report.pdf`.
+- Glass damage and rodent bites account for 79.4% of claims.
+- 99.0% of claims begin with a notification event.
+- Median claim lifecycle duration is 4.40 days; the mean is 14.06 days, reflecting a heavily right-skewed distribution.
+- Document request to damage documents has a median transition time of 8.02 days.
+- Document volume is positively associated with claim duration (Spearman ρ = 0.349).
 
-### 5. SQL: Database Execution & Reproducibility
+Statistical tests indicate differences in lifecycle duration and document volume across damage types. These are observational associations, not evidence of causation.
 
-Execute the SQL scripts sequentially from the integrated terminal inside the Dev Container. PostgreSQL runs as a separate Docker Compose service and is accessible at `localhost`.
+## SQL Analysis
 
-```bash
-# 1. Create the database schema and ingest the source data
-psql -h localhost -U claims_app -d claims_analytics -f sql/00_schema_and_ingestion.sql
+Six SQL scripts cover:
 
-# 2. Execute window functions: sequencing, ranking, lead/lag, rolling calculations, and NTILE
-psql -h localhost -U claims_app -d claims_analytics -f sql/01_window_functions_deep_dive.sql
+1. Schema creation and data ingestion.
+2. Window functions and claim-level sequencing.
+3. CTEs and process mining.
+4. Cohort analysis and temporal trends.
+5. Advanced aggregations and operational KPIs.
+6. Reporting views.
 
-# 3. Execute CTEs and process mining: transition matrices and rework loops
-psql -h localhost -U claims_app -d claims_analytics -f sql/02_ctes_and_process_mining.sql
+Key findings:
 
-# 4. Analyze cohort and temporal trends: time series, monthly changes, and SLA aging tiers
-psql -h localhost -U claims_app -d claims_analytics -f sql/03_cohort_and_temporal_trends.sql
+- 50.3% of claims exhibit repeated state patterns, used as a proxy for potential rework.
+- Claims with repeated state patterns have a median lifecycle of 7.77 days, compared with 1.32 days for claims following linear paths.
+- Document request to damage documents accounts for 8,662.1 cumulative days across 696 transitions.
+- Lifecycle duration increases across document-page brackets.
 
-# 5. Calculate advanced aggregations and KPIs: GROUPING SETS, ROLLUP, CUBE, FILTER, and Z-scores
-psql -h localhost -U claims_app -d claims_analytics -f sql/04_advanced_aggregations_and_kpis.sql
+The repeated-state measure identifies potential process inefficiency; it does not establish that every repeated state represents rework.
 
-# 6. Deploy semantic reporting views for Power BI and Tableau
-psql -h localhost -U claims_app -d claims_analytics -f sql/05_reporting_views.sql
-```
+## Power BI Dashboard
 
----
+The Power BI dashboard presents claim volume, processing duration, event counts, document volume, and breakdowns by claim characteristics.
 
-## Key Analytical Findings (EDA Phase)
+File: `power_bi/claims_operations_dashboard.pbix`
 
-- **Portfolio Composition:** Glass damage (38.5%, 1,976 claims) and Rodent bites (40.9%, 2,098 claims) account for **79.4%** of all claim files. Animal damage (6.2%) and Parking damage (13.6%) represent higher-complexity categories, while Scorch damage (0.3%) and Hit & run (0.4%) are rare.
-- **Initial Notification Interval:** 99.0% of claims begin with `Notification of claim`. The observed median transition interval from `Notification of claim` to `Processing` is **0.035 days (approximately 2.1 minutes)**, with a mean of 0.024 days.
-- **Observed Transition Intervals:** Among high-volume transitions, the interval between `Document request` and receipt of `Damage documents` exhibits a median of **8.020 days (192.5 hours)** and a mean of **12.446 days** across 696 observed transitions.
-- **Skewed Lifecycle Durations:** Overall claim lifecycles are heavily right-skewed ($\text{skew} = 8.16$). The portfolio median duration is **4.40 days** (IQR = 14.17 days), whereas the arithmetic mean is **14.06 days**, heavily influenced by four claims with multi-hundred-day observational gaps between events.
-- **Statistical Associations (Non-Parametric Testing):**
-  - Kruskal-Wallis testing indicates statistically significant differences in rank distributions across damage categories for lifecycle duration ($H = 367.45$, $p_{\text{holm}} < 10^{-76}$, $\eta^2_H = 0.071$), total document pages ($H = 389.48$, $p_{\text{holm}} < 10^{-81}$, $\eta^2_H = 0.075$), and event touchpoints ($H = 94.73$, $p_{\text{holm}} < 10^{-18}$, $\eta^2_H = 0.018$).
-  - Post-hoc pairwise Mann-Whitney $U$ tests with Holm correction confirm that Animal damage (median 15.29 days) and Parking damage (median 13.13 days) have significantly longer lifecycle durations than Glass damage (median 2.96 days) and Rodent bites (median 3.88 days), while the difference between Glass and Rodent claims is not statistically significant ($p_{\text{holm}} = 0.366$).
-  - Total document pages per claim show a moderate positive monotonic association with lifecycle duration (Spearman $\rho = 0.349$, $p < 10^{-140}$).
+## Data Processing
 
----
+- `process_log.csv` is retained as the original source.
+- `cleaned_process_log.csv` contains the cleaned and standardized event-level data.
+- `claim_summary.csv` contains one aggregated record per claim.
+- The claim-level dataset includes claim identifiers, damage types, first and last events, event counts, document totals, lifecycle duration, and page brackets.
 
-## Potential Areas for Operational Investigation
+## Limitations
 
-*The following areas represent operational hypotheses for leadership inquiry, clearly separated from the empirical findings of the process logs:*
+- The dataset represents historical process logs from one insurance context.
+- Lifecycle duration can include long observational gaps and should not automatically be interpreted as active processing time.
+- Repeated state patterns are a proxy for potential rework, not a verified rework classification.
+- Statistical associations between claim characteristics and processing outcomes do not establish causation.
+- The dataset does not provide sufficient evidence to verify actual automation or straight-through processing.
 
-1. **Document Request and Submission Workflows:**
-   - *Observation:* The observed interval between `Document request` and `Damage documents` has a median of 8.02 days and a 90th percentile of 25.68 days.
-   - *Area for Investigation:* Claims leadership could evaluate whether implementing digital upload options, mobile document capture, or automated follow-up reminders could help reduce turnaround times for requested documentation.
-2. **Workflow Triage by Claim Category:**
-   - *Observation:* Glass damage and rodent bites comprise 79.4% of total claims and exhibit relatively short median lifecycles (2.96 and 3.88 days). Animal and parking damage involve longer lifecycles (15.29 and 13.13 days) and higher page counts.
-   - *Area for Investigation:* Investigate whether routing high-volume, lower-complexity claims through streamlined handling paths could free up adjuster capacity for more complex claim types.
-3. **Handling of Long-Gap Claims:**
-   - *Observation:* Outlier claims (>365 days) exhibit multi-month gaps between recorded events.
-   - *Area for Investigation:* Review organizational policies regarding claim status tracking, file dormancy thresholds, and periodic status checks to ensure claims with extended inactivity are appropriately categorized.
+## Reproducibility
 
----
+1. Open the repository in VS Code.
+2. Select **Reopen in Container** to build and start the development environment.
+3. Run `notebooks/claims_operations_eda.ipynb` for the Python analysis.
+4. Execute the SQL scripts in numerical order, beginning with `00_schema_and_ingestion.sql`.
+5. Open `power_bi/claims_operations_dashboard.pbix` to explore the dashboard.
 
-## Phase 2: Relational Database Modeling & Advanced SQL Analytics
-
-The [`sql/`](sql/) directory implements the relational modeling and analytical queries for PostgreSQL 14+. Operational process logs are converted into a relational star schema and queried across an extensive range of SQL functions:
-
-### Database Star Schema Architecture
-
-```text
-                  ┌──────────────────────┐
-                  │   dim_damage_type    │
-                  ├──────────────────────┤
-                  │ damage_type_id (PK)  │
-                  │ damage_type_name     │
-                  │ complexity_tier      │
-                  └──────────┬───────────┘
-                             │
-                             │ 1:N
-                             ▼
-┌────────────────────────┐      ┌───────────────────────────────┐
-│     claim_summary      │      │        process_events         │
-├────────────────────────┤      ├───────────────────────────────┤
-│ instance_id (PK)       │      │ event_id (PK, BIGSERIAL)      │
-│ damage_type            │◄─────┤ instance_id (FK)              │
-│ first_event            │      │ event_timestamp               │
-│ last_event             │      │ state_id (FK)                 │
-│ first_state            │      │ state_name                    │
-│ last_state             │      │ type_id (FK)                  │
-│ event_count            │      │ type_name                     │
-│ total_docs             │      │ file_name                     │
-│ total_pages            │      │ n_pages                       │
-│ duration_days          │      │ time_since_last_event_sec     │
-│ page_bracket           │      │ log_time_since_last_event     │
-└────────────────────────┘      └──────────────┬────────────────┘
-                                               │
-                                               │ N:1
-                                               ▼
-                                ┌───────────────────────────────┐
-                                │       dim_process_state       │
-                                ├───────────────────────────────┤
-                                │ state_id (PK)                 │
-                                │ state_name                    │
-                                │ phase_category                │
-                                │ is_terminal                   │
-                                └───────────────────────────────┘
-```
-
----
-
-### SQL Suite Modules & Techniques
-
-| Script | Core SQL Concepts | Operational Focus |
-|---|---|---|
-| **[`sql/00_schema_and_ingestion.sql`](sql/00_schema_and_ingestion.sql)** | DDL, PK/FK constraints, CHECK constraints, composite indexes, staging tables, bulk `COPY` | Star-schema creation, referential integrity, and automated CSV ingestion. |
-| **[`sql/01_window_functions_deep_dive.sql`](sql/01_window_functions_deep_dive.sql)** | `ROW_NUMBER()`, `RANK()`, `DENSE_RANK()`, `LAG()`, `LEAD()`, `FIRST_VALUE()`, `LAST_VALUE()`, `NTILE(4/10)`, `CUME_DIST()`, `PERCENT_RANK()`, rolling frames (`ROWS BETWEEN ...`) | Lifecycle touchpoint sequencing, inter-event latency extraction, cumulative page accrual, moving averages, and duration quartile/decile triage. |
-| **[`sql/02_ctes_and_process_mining.sql`](sql/02_ctes_and_process_mining.sql)** | Chained CTEs, Conditional Aggregation (Markov pivot), `WITH RECURSIVE` path traversal | Directed transition pairs, state transition probability matrix, bottleneck impact ranking, rework/ping-pong loop detection, and full workflow path reconstruction. |
-| **[`sql/03_cohort_and_temporal_trends.sql`](sql/03_cohort_and_temporal_trends.sql)** | `DATE_TRUNC`, `EXTRACT(ISODOW/HOUR)`, `TO_CHAR`, rolling 3-month window, MoM/YoY growth via `LAG()` | Monthly intake cohorts, day-of-week staffing analysis, hourly intake heatmaps, and SLA aging distribution brackets (`< 24h` to `> 365d`). |
-| **[`sql/04_advanced_aggregations_and_kpis.sql`](sql/04_advanced_aggregations_and_kpis.sql)** | `GROUPING SETS`, `ROLLUP`, `CUBE`, `FILTER (WHERE ...)`, `PERCENTILE_CONT`, `IQR`, `CORR`, Z-score anomaly detection | Multi-dimensional rollups, single-pass executive scorecards, non-parametric dispersion metrics, correlation matrices, and $+3\sigma$ outlier detection. |
-| **[`sql/05_reporting_views.sql`](sql/05_reporting_views.sql)** | Semantic reporting layer DDL (`CREATE OR REPLACE VIEW`), derived KPI flags | Production views for BI dashboards: `v_claim_master`, `v_process_transitions`, `v_transition_bottlenecks`, `v_damage_scorecard`, and `v_monthly_intake_trend`. |
-
----
-
-### Key Operational Findings from SQL Analytics
-
-1. **Rework Loop Penalty:**  
-   50.3% of claims experience rework loops (re-entering stages or repeat document requests). Claims with rework have a median lifecycle duration of **7.77 days** vs. **1.32 days** for clean linear paths (**5.9x duration increase**).
-2. **Top Workflow Bottleneck:**  
-   The transition from `Document request` to `Damage documents` consumes **8,662.1 cumulative portfolio days** across 696 transitions, with a median customer turnaround latency of **8.02 days** ($P_{90} = 25.67$ days).
-3. **Straight-Through Processing (STP) Feasibility:**  
-   Touchless straight-through processing is viable for **21.9% of Glass claims** and **18.6% of Rodent claims** (averaging 4.06 to 4.95 days), but drops to under 9.5% for Parking and Animal damage due to manual inspection requirements.
-4. **Intake Seasonality & Staffing:**  
-   Tuesday (1,005 claims) and Monday/Wednesday (870 claims each) represent peak claims intake days; weekends account for less than 15%. System activity peaks between 11:00 and 15:00 UTC.
-5. **Document Burden Scaling:**  
-   Claims with 1–5 pages resolve with a median of **0.99 days**, 6–10 pages take **4.30 days**, 11–20 pages take **13.71 days**, and 21+ pages take **19.97 days**. Page count exhibits a strong positive correlation with touchpoints ($r = 0.54 - 0.69$).
-
-
+SQL execution outputs are included in `reports/sql_outputs/`. The rendered exploratory analysis is available at `reports/claims_operations_eda_report.pdf`.

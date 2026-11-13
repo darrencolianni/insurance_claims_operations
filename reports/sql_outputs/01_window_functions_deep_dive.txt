@@ -1,0 +1,193 @@
+ instance_id |    event_timestamp     |      state_name       |  damage_type   | event_seq_asc | event_seq_desc | lifecycle_position 
+-------------+------------------------+-----------------------+----------------+---------------+----------------+--------------------
+           0 | 2014-01-01 08:21:53+00 | Notification of claim | Parking damage |             1 |              4 | In-Flight State
+           0 | 2014-01-01 08:25:55+00 | Processing            | Parking damage |             2 |              3 | In-Flight State
+           0 | 2014-04-02 15:51:14+00 | Damage documents      | Parking damage |             3 |              2 | Penultimate State
+           0 | 2014-04-03 15:32:06+00 | Audit passed          | Parking damage |             4 |              1 | Final State
+           1 | 2014-01-02 13:49:04+00 | Notification of claim | Rodent bites   |             1 |              3 | In-Flight State
+           1 | 2014-01-02 13:50:42+00 | Processing            | Rodent bites   |             2 |              2 | Penultimate State
+           1 | 2014-01-12 11:58:15+00 | Damage documents      | Rodent bites   |             3 |              1 | Final State
+           2 | 2014-01-07 07:57:14+00 | Notification of claim | Parking damage |             1 |              6 | In-Flight State
+           2 | 2014-01-07 08:03:44+00 | Processing            | Parking damage |             2 |              5 | In-Flight State
+           2 | 2014-01-07 08:16:49+00 | Document request      | Parking damage |             3 |              4 | In-Flight State
+           2 | 2014-01-12 13:47:09+00 | Damage documents      | Parking damage |             4 |              3 | In-Flight State
+           2 | 2014-02-05 04:41:46+00 | Damage documents      | Parking damage |             5 |              2 | Penultimate State
+           2 | 2014-02-05 11:29:22+00 | Audit passed          | Parking damage |             6 |              1 | Final State
+           9 | 2014-01-09 13:44:50+00 | Notification of claim | Glass damage   |             1 |             12 | In-Flight State
+           9 | 2014-01-09 13:45:52+00 | Processing            | Glass damage   |             2 |             11 | In-Flight State
+           9 | 2014-06-14 15:27:59+00 | Damage documents      | Glass damage   |             3 |             10 | In-Flight State
+           9 | 2014-06-14 15:28:06+00 | Damage documents      | Glass damage   |             4 |              9 | In-Flight State
+           9 | 2014-06-14 15:28:14+00 | Damage documents      | Glass damage   |             5 |              8 | In-Flight State
+           9 | 2014-06-14 15:39:05+00 | Document request      | Glass damage   |             6 |              7 | In-Flight State
+           9 | 2014-06-14 16:32:47+00 | Audit passed          | Glass damage   |             7 |              6 | In-Flight State
+           9 | 2014-06-14 16:52:35+00 | Document request      | Glass damage   |             8 |              5 | In-Flight State
+           9 | 2014-06-18 08:37:39+00 | Cover note            | Glass damage   |             9 |              4 | In-Flight State
+           9 | 2014-06-18 08:42:39+00 | Damage documents      | Glass damage   |            10 |              3 | In-Flight State
+           9 | 2014-06-18 08:46:36+00 | Document request      | Glass damage   |            11 |              2 | Penultimate State
+           9 | 2014-06-18 09:15:41+00 | Further inquiry       | Glass damage   |            12 |              1 | Final State
+(25 rows)
+
+  damage_type   | rank_in_category | instance_id | duration_days | event_count | total_docs 
+----------------+------------------+-------------+---------------+-------------+------------
+ Animal damage  |                1 |        2940 |        461.17 |          11 |          6
+ Animal damage  |                2 |        2690 |        286.50 |          14 |          9
+ Animal damage  |                3 |        2249 |        215.07 |           4 |          2
+ Glass damage   |                1 |         571 |        738.27 |           5 |          2
+ Glass damage   |                2 |        2578 |        274.16 |           8 |          4
+ Glass damage   |                3 |        3095 |        239.46 |           4 |          2
+ Hit & run      |                1 |        1277 |        142.95 |          11 |          4
+ Hit & run      |                2 |        3431 |         58.00 |           9 |          4
+ Hit & run      |                3 |         662 |         56.98 |           6 |          2
+ Parking damage |                1 |        2114 |        347.74 |           9 |          5
+ Parking damage |                2 |        2682 |        346.91 |           9 |          2
+ Parking damage |                3 |        4465 |        332.86 |           8 |          4
+ Rodent bites   |                1 |        2354 |        624.43 |          11 |          3
+ Rodent bites   |                2 |        3134 |        470.59 |          11 |          5
+ Rodent bites   |                3 |        1357 |        255.79 |           6 |          4
+ Scorch damage  |                1 |         691 |         73.10 |           5 |          2
+ Scorch damage  |                2 |        4865 |         62.18 |          11 |          7
+ Scorch damage  |                3 |        1367 |         55.93 |           4 |          2
+(18 rows)
+
+ instance_id |  damage_type  | total_docs | total_pages | duration_days | page_rank_with_gaps | page_dense_rank 
+-------------+---------------+------------+-------------+---------------+---------------------+-----------------
+        2690 | Animal damage |          9 |       26.00 |    286.500058 |                   1 |               1
+        1204 | Animal damage |         10 |       23.00 |     39.555243 |                   2 |               2
+        3957 | Animal damage |         10 |       22.00 |      5.897593 |                   3 |               3
+        4475 | Animal damage |          6 |       21.00 |     90.952569 |                   4 |               4
+        3722 | Animal damage |         10 |       19.00 |      6.008819 |                   5 |               5
+        2942 | Animal damage |          9 |       19.00 |     51.738090 |                   5 |               5
+         374 | Animal damage |          7 |       19.00 |     24.751481 |                   5 |               5
+        3747 | Animal damage |          7 |       19.00 |     31.006447 |                   5 |               5
+        3883 | Animal damage |          6 |       19.00 |     43.796829 |                   5 |               5
+        2032 | Animal damage |          6 |       19.00 |     54.557280 |                   5 |               5
+         530 | Animal damage |          5 |       19.00 |     54.112685 |                   5 |               5
+        2537 | Animal damage |          6 |       18.00 |     47.532257 |                  12 |               6
+        2736 | Animal damage |          4 |       18.00 |     32.945208 |                  12 |               6
+        4941 | Animal damage |          7 |       17.00 |     42.151713 |                  14 |               7
+         753 | Animal damage |          6 |       17.00 |     57.984792 |                  14 |               7
+(15 rows)
+
+ instance_id |    event_timestamp     |    previous_state     |     current_state     |    next_state    | hours_since_prior_event | days_since_prior_event 
+-------------+------------------------+-----------------------+-----------------------+------------------+-------------------------+------------------------
+           0 | 2014-01-01 08:21:53+00 |                       | Notification of claim | Processing       |                         |                       
+           0 | 2014-01-01 08:25:55+00 | Notification of claim | Processing            | Damage documents |                    0.07 |                  0.003
+           0 | 2014-04-02 15:51:14+00 | Processing            | Damage documents      | Audit passed     |                 2191.42 |                 91.309
+           0 | 2014-04-03 15:32:06+00 | Damage documents      | Audit passed          |                  |                   23.68 |                  0.987
+(4 rows)
+
+ instance_id |    event_timestamp     | two_steps_prior  |  one_step_prior  | current_state |  damage_type   
+-------------+------------------------+------------------+------------------+---------------+----------------
+           0 | 2014-04-03 15:32:06+00 | Processing       | Damage documents | Audit passed  | Parking damage
+           2 | 2014-02-05 11:29:22+00 | Damage documents | Damage documents | Audit passed  | Parking damage
+           8 | 2014-03-31 16:08:44+00 | Damage documents | Processing       | Rejection     | Parking damage
+           8 | 2014-03-31 18:22:14+00 | Processing       | Rejection        | Audit passed  | Parking damage
+           9 | 2014-06-14 16:32:47+00 | Damage documents | Document request | Audit passed  | Glass damage
+          13 | 2014-01-12 03:21:26+00 | Damage documents | Processing       | Rejection     | Rodent bites
+          14 | 2014-01-13 17:04:53+00 | Damage documents | Further inquiry  | Audit passed  | Rodent bites
+          17 | 2014-03-03 21:45:42+00 | Processing       | Damage documents | Audit passed  | Rodent bites
+          23 | 2014-01-20 15:33:29+00 | Damage documents | Processing       | Audit passed  | Rodent bites
+          25 | 2014-01-22 08:36:17+00 | Processing       | Document request | Audit passed  | Rodent bites
+          26 | 2014-01-22 15:23:57+00 | Damage documents | Document request | Audit passed  | Glass damage
+          28 | 2014-01-22 15:46:41+00 | Damage documents | Document request | Audit passed  | Rodent bites
+          38 | 2014-02-24 13:32:02+00 | Damage documents | Damage documents | Audit passed  | Parking damage
+          38 | 2014-02-27 11:41:13+00 | Audit passed     | Document request | Audit passed  | Parking damage
+          38 | 2014-03-19 14:28:56+00 | Damage documents | Damage documents | Audit passed  | Parking damage
+(15 rows)
+
+ instance_id |    event_timestamp     |      state_name       |  claim_initial_state  | claim_terminal_state | cumulative_days_from_start 
+-------------+------------------------+-----------------------+-----------------------+----------------------+----------------------------
+           0 | 2014-01-01 08:21:53+00 | Notification of claim | Notification of claim | Audit passed         |                      0.000
+           0 | 2014-01-01 08:25:55+00 | Processing            | Notification of claim | Audit passed         |                      0.003
+           0 | 2014-04-02 15:51:14+00 | Damage documents      | Notification of claim | Audit passed         |                     91.312
+           0 | 2014-04-03 15:32:06+00 | Audit passed          | Notification of claim | Audit passed         |                     92.299
+           2 | 2014-01-07 07:57:14+00 | Notification of claim | Notification of claim | Audit passed         |                      0.000
+           2 | 2014-01-07 08:03:44+00 | Processing            | Notification of claim | Audit passed         |                      0.005
+           2 | 2014-01-07 08:16:49+00 | Document request      | Notification of claim | Audit passed         |                      0.014
+           2 | 2014-01-12 13:47:09+00 | Damage documents      | Notification of claim | Audit passed         |                      5.243
+           2 | 2014-02-05 04:41:46+00 | Damage documents      | Notification of claim | Audit passed         |                     28.864
+           2 | 2014-02-05 11:29:22+00 | Audit passed          | Notification of claim | Audit passed         |                     29.147
+(10 rows)
+
+ instance_id |    event_timestamp     |      state_name       | file_name | event_pages | cumulative_distinct_docs_received | cumulative_pages_received | pct_of_claim_pages_delivered 
+-------------+------------------------+-----------------------+-----------+-------------+-----------------------------------+---------------------------+------------------------------
+           2 | 2014-01-07 07:57:14+00 | Notification of claim |           |           0 |                                 0 |                         0 |                          0.0
+           2 | 2014-01-07 08:03:44+00 | Processing            |           |           0 |                                 0 |                         0 |                          0.0
+           2 | 2014-01-07 08:16:49+00 | Document request      | 00010.pdf |        3.00 |                                 1 |                      3.00 |                         33.3
+           2 | 2014-01-12 13:47:09+00 | Damage documents      | 00011.pdf |        4.00 |                                 2 |                      7.00 |                         77.8
+           2 | 2014-02-05 04:41:46+00 | Damage documents      | 00012.pdf |        2.00 |                                 3 |                      9.00 |                        100.0
+           2 | 2014-02-05 11:29:22+00 | Audit passed          |           |           0 |                                 3 |                      9.00 |                        100.0
+           8 | 2014-01-09 00:08:48+00 | Notification of claim |           |           0 |                                 0 |                         0 |                          0.0
+           8 | 2014-01-09 00:09:49+00 | Other                 | 00036.pdf |        2.00 |                                 1 |                      2.00 |                         16.7
+           8 | 2014-01-09 00:31:44+00 | Notification of claim | 00037.pdf |        1.00 |                                 2 |                      3.00 |                         25.0
+           8 | 2014-03-31 14:56:10+00 | Damage documents      | 00038.pdf |        8.00 |                                 3 |                     11.00 |                         91.7
+           8 | 2014-03-31 15:36:28+00 | Processing            |           |           0 |                                 3 |                     11.00 |                         91.7
+           8 | 2014-03-31 16:08:44+00 | Rejection             | 00040.pdf |        1.00 |                                 4 |                     12.00 |                        100.0
+           8 | 2014-03-31 18:22:14+00 | Audit passed          |           |           0 |                                 4 |                     12.00 |                        100.0
+(13 rows)
+
+ instance_id | damage_type  | intake_date | duration_days | moving_avg_7_claims | deviation_from_moving_avg 
+-------------+--------------+-------------+---------------+---------------------+---------------------------
+           3 | Glass damage | 2014-01-07  |          2.47 |               43.01 |                    -40.54
+           5 | Glass damage | 2014-01-08  |          8.82 |               37.21 |                    -28.39
+           6 | Glass damage | 2014-01-08  |          0.94 |               31.44 |                    -30.49
+           9 | Glass damage | 2014-01-09  |        159.81 |               26.95 |                    132.87
+          10 | Glass damage | 2014-01-10  |         14.01 |               26.59 |                    -12.59
+          15 | Glass damage | 2014-01-13  |          2.56 |               25.33 |                    -22.77
+          18 | Glass damage | 2014-01-15  |          0.01 |               26.86 |                    -26.85
+          19 | Glass damage | 2014-01-16  |          0.00 |                4.11 |                     -4.11
+          21 | Glass damage | 2014-01-18  |          0.00 |                2.11 |                     -2.11
+          26 | Glass damage | 2014-01-21  |         11.62 |                1.91 |                      9.71
+          27 | Glass damage | 2014-01-22  |          0.61 |                6.27 |                     -5.66
+          41 | Glass damage | 2014-02-02  |          0.00 |                7.94 |                     -7.94
+          47 | Glass damage | 2014-02-03  |          1.14 |                7.94 |                     -6.80
+          48 | Glass damage | 2014-02-04  |         30.50 |                7.43 |                     23.07
+          56 | Glass damage | 2014-02-07  |         11.71 |                7.99 |                      3.73
+          57 | Glass damage | 2014-02-08  |          0.00 |                7.99 |                     -7.98
+          60 | Glass damage | 2014-02-10  |          8.04 |                8.05 |                     -0.02
+          61 | Glass damage | 2014-02-10  |          4.50 |                4.45 |                      0.05
+          64 | Glass damage | 2014-02-11  |          0.00 |                3.51 |                     -3.51
+          68 | Glass damage | 2014-02-12  |          1.62 |                6.32 |                     -4.70
+(20 rows)
+
+ operational_speed_tier | total_claims | min_duration_days | avg_duration_days | max_duration_days | avg_pages | avg_events 
+------------------------+--------------+-------------------+-------------------+-------------------+-----------+------------
+ Q1 - Fastest Quartile  |         1283 |              0.00 |              0.02 |              0.17 |      6.25 |       4.45
+ Q2 - Second Quartile   |         1283 |              0.17 |              1.91 |              4.40 |      7.08 |       6.15
+ Q3 - Third Quartile    |         1283 |              4.41 |              8.59 |             14.34 |      8.16 |       6.86
+ Q4 - Slowest Quartile  |         1282 |             14.39 |             45.74 |            738.27 |      9.10 |       7.53
+(4 rows)
+
+ doc_volume_decile | claim_count | min_pages | max_pages | avg_duration_days 
+-------------------+-------------+-----------+-----------+-------------------
+                 1 |         514 |       0.0 |       4.0 |              8.77
+                 2 |         513 |       4.0 |       5.0 |              8.20
+                 3 |         513 |       5.0 |       6.0 |              9.11
+                 4 |         513 |       6.0 |       6.0 |             10.84
+                 5 |         513 |       6.0 |       7.0 |             11.66
+                 6 |         513 |       7.0 |       8.0 |             10.86
+                 7 |         513 |       8.0 |       9.0 |             14.21
+                 8 |         513 |       9.0 |      10.0 |             16.63
+                 9 |         513 |      10.0 |      12.0 |             19.78
+                10 |         513 |      12.0 |      27.0 |             30.56
+(10 rows)
+
+ instance_id |  damage_type   | duration_days | percent_rank | cumulative_distribution 
+-------------+----------------+---------------+--------------+-------------------------
+         571 | Glass damage   |        738.27 |       1.0000 |                  1.0000
+        2354 | Rodent bites   |        624.43 |       0.9998 |                  0.9998
+        3134 | Rodent bites   |        470.59 |       0.9996 |                  0.9996
+        2940 | Animal damage  |        461.17 |       0.9994 |                  0.9994
+        2114 | Parking damage |        347.74 |       0.9992 |                  0.9992
+        2682 | Parking damage |        346.91 |       0.9990 |                  0.9990
+        4465 | Parking damage |        332.86 |       0.9988 |                  0.9988
+         457 | Parking damage |        302.52 |       0.9986 |                  0.9986
+         255 | Parking damage |        297.51 |       0.9984 |                  0.9984
+        2959 | Parking damage |        296.23 |       0.9982 |                  0.9982
+        4342 | Parking damage |        295.91 |       0.9981 |                  0.9981
+        2690 | Animal damage  |        286.50 |       0.9979 |                  0.9979
+         888 | Parking damage |        285.05 |       0.9977 |                  0.9977
+        3900 | Parking damage |        280.28 |       0.9975 |                  0.9975
+        2578 | Glass damage   |        274.16 |       0.9973 |                  0.9973
+(15 rows)
+

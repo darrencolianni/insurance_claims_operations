@@ -1,0 +1,131 @@
+CREATE VIEW
+COMMENT
+       damage_category       |         final_state         | total_claims | mean_duration_days | median_duration_days | mean_pages | mean_events 
+-----------------------------+-----------------------------+--------------+--------------------+----------------------+------------+-------------
+ == PORTFOLIO GRAND TOTAL == | -- All Outcomes Subtotal -- |         4672 |               7.90 |                 3.40 |        7.6 |         6.1
+ Animal damage               | -- All Outcomes Subtotal -- |          301 |              19.32 |                13.74 |       10.3 |         7.3
+ Animal damage               | Notification of payment     |          105 |              16.74 |                12.06 |       10.8 |         6.9
+ Animal damage               | Audit passed                |           91 |              19.02 |                11.98 |       10.5 |         8.3
+ Animal damage               | Damage documents            |           25 |              25.06 |                25.88 |       10.1 |         5.9
+ Animal damage               | Correspondence              |           17 |              32.98 |                31.01 |       13.8 |         8.8
+ Animal damage               | Further inquiry             |           14 |              27.96 |                28.51 |       10.0 |         8.1
+ Animal damage               | Rejection                   |           13 |              13.89 |                 0.53 |        8.5 |         5.2
+ Animal damage               | Internal                    |           13 |              15.79 |                11.95 |        9.0 |         7.5
+ Animal damage               | Other                       |           10 |              33.00 |                38.18 |        8.6 |         7.2
+ Animal damage               | Document request            |            6 |               3.02 |                 0.01 |        4.2 |         4.5
+ Animal damage               | Cover note                  |            3 |               5.02 |                 4.07 |        6.3 |         5.7
+ Animal damage               | Processing                  |            2 |               0.01 |                 0.01 |        4.0 |         3.0
+ Animal damage               | Notification of claim       |            2 |               0.00 |                 0.00 |        7.0 |         3.0
+ Glass damage                | -- All Outcomes Subtotal -- |         1790 |               4.93 |                 1.89 |        7.3 |         5.9
+ Glass damage                | Notification of payment     |          730 |               4.24 |                 0.81 |        7.4 |         5.5
+ Glass damage                | Audit passed                |          626 |               4.96 |                 1.98 |        7.3 |         6.5
+ Glass damage                | Damage documents            |          125 |               6.63 |                 5.05 |        6.7 |         4.6
+ Glass damage                | Correspondence              |          119 |               9.36 |                 6.87 |        9.6 |         7.8
+ Glass damage                | Processing                  |           66 |               0.03 |                 0.00 |        5.4 |         3.4
+ Glass damage                | Internal                    |           35 |               7.48 |                 4.36 |        7.2 |         7.2
+ Glass damage                | Document request            |           23 |               2.80 |                 0.01 |        5.2 |         4.9
+ Glass damage                | Rejection                   |           20 |               6.01 |                 4.34 |        7.0 |         5.8
+ Glass damage                | Other                       |           18 |               4.80 |                 3.78 |        7.2 |         6.4
+ Glass damage                | Further inquiry             |           18 |               7.72 |                 5.22 |        6.3 |         6.1
+ Glass damage                | Notification of claim       |            7 |               0.58 |                 0.00 |        6.3 |         3.3
+ Glass damage                | Cover note                  |            3 |               0.24 |                 0.11 |        7.7 |         4.3
+ Hit & run                   | -- All Outcomes Subtotal -- |           21 |              16.55 |                10.08 |       11.6 |         7.5
+ Hit & run                   | Notification of payment     |            8 |              18.67 |                14.71 |        9.6 |         6.9
+ Hit & run                   | Correspondence              |            5 |              10.39 |                 8.61 |       13.6 |         8.2
+ Hit & run                   | Audit passed                |            4 |              22.15 |                14.45 |       15.0 |         8.5
+ Hit & run                   | Damage documents            |            2 |              20.28 |                20.28 |       11.5 |         9.5
+ Hit & run                   | Rejection                   |            1 |               4.99 |                 4.99 |        8.0 |         4.0
+ Hit & run                   | Further inquiry             |            1 |              12.03 |                12.03 |        7.0 |         5.0
+ Parking damage              | -- All Outcomes Subtotal -- |          652 |              18.62 |                11.18 |        8.8 |         6.6
+ Parking damage              | Audit passed                |          205 |              17.87 |                 9.21 |        9.6 |         7.4
+ Parking damage              | Notification of payment     |          168 |              18.88 |                12.42 |       10.2 |         6.6
+ Parking damage              | Correspondence              |           59 |              20.09 |                15.92 |        9.8 |         7.5
+ Parking damage              | Damage documents            |           44 |              15.62 |                10.81 |        7.5 |         3.9
+ Parking damage              | Other                       |           43 |              43.46 |                41.82 |        5.9 |         6.5
+ Parking damage              | Document request            |           37 |               3.16 |                 0.00 |        3.6 |         4.6
+ Parking damage              | Further inquiry             |           33 |              19.80 |                13.01 |        9.0 |         7.4
+ Parking damage              | Rejection                   |           25 |              11.16 |                 3.03 |        7.3 |         5.8
+ Parking damage              | Internal                    |           25 |              18.54 |                14.09 |        7.7 |         7.1
+ Parking damage              | Processing                  |           11 |               0.00 |                 0.00 |        4.0 |         3.4
+ Parking damage              | Notification of claim       |            2 |              27.49 |                27.49 |        4.0 |         4.5
+ Rodent bites                | -- All Outcomes Subtotal -- |         1894 |               5.08 |                 2.77 |        6.9 |         6.0
+ Rodent bites                | Notification of payment     |          702 |               4.59 |                 1.70 |        7.0 |         5.6
+ Rodent bites                | Audit passed                |          681 |               5.21 |                 2.98 |        7.1 |         6.6
+ Rodent bites                | Damage documents            |          181 |               6.89 |                 5.63 |        6.2 |         4.8
+ Rodent bites                | Correspondence              |           94 |               7.82 |                 6.26 |        8.8 |         7.7
+ Rodent bites                | Processing                  |           45 |               0.00 |                 0.00 |        4.7 |         3.5
+ Rodent bites                | Internal                    |           41 |               4.21 |                 1.87 |        5.9 |         6.8
+ Rodent bites                | Rejection                   |           40 |               4.67 |                 4.15 |        7.3 |         6.0
+ Rodent bites                | Further inquiry             |           35 |               5.92 |                 5.67 |        6.5 |         6.5
+ Rodent bites                | Document request            |           32 |               1.84 |                 0.00 |        4.4 |         4.8
+ Rodent bites                | Other                       |           29 |               7.50 |                 4.49 |        7.0 |         7.0
+ Rodent bites                | Notification of claim       |           10 |               0.22 |                 0.00 |        5.4 |         3.0
+ Rodent bites                | Cover note                  |            4 |               5.41 |                 2.99 |        4.0 |         4.8
+ Scorch damage               | -- All Outcomes Subtotal -- |           14 |              12.35 |                 4.40 |        7.9 |         6.8
+ Scorch damage               | Audit passed                |            5 |              11.20 |                 3.83 |        9.6 |         8.6
+ Scorch damage               | Notification of payment     |            4 |              20.83 |                12.18 |        6.5 |         5.8
+ Scorch damage               | Rejection                   |            2 |               6.24 |                 6.24 |        9.5 |         5.5
+ Scorch damage               | Other                       |            1 |              19.00 |                19.00 |        7.0 |         9.0
+ Scorch damage               | Damage documents            |            1 |               0.00 |                 0.00 |        5.0 |         3.0
+ Scorch damage               | Correspondence              |            1 |               2.09 |                 2.09 |        6.0 |         6.0
+(66 rows)
+
+      damage_type       |    page_bracket    | claims_count | avg_duration_days | median_duration_days 
+------------------------+--------------------+--------------+-------------------+----------------------
+ ** ALL DAMAGE TYPES ** | ** ALL BRACKETS ** |         2442 |              8.59 |                 3.21
+ ** ALL DAMAGE TYPES ** | 11–20 Pages        |          373 |             15.59 |                10.08
+ ** ALL DAMAGE TYPES ** | 1–5 Pages          |          587 |              5.52 |                 0.79
+ ** ALL DAMAGE TYPES ** | 21+ Pages          |           10 |             14.50 |                12.28
+ ** ALL DAMAGE TYPES ** | 6–10 Pages         |         1471 |              7.98 |                 3.07
+ ** ALL DAMAGE TYPES ** | No Docs Logged     |            1 |             23.00 |                23.00
+ Glass damage           | ** ALL BRACKETS ** |         1790 |              4.93 |                 1.89
+ Glass damage           | 11–20 Pages        |          187 |              8.13 |                 6.37
+ Glass damage           | 1–5 Pages          |          457 |              3.36 |                 0.62
+ Glass damage           | 21+ Pages          |            5 |              8.88 |                 7.77
+ Glass damage           | 6–10 Pages         |         1140 |              5.00 |                 1.96
+ Glass damage           | No Docs Logged     |            1 |             23.00 |                23.00
+ Parking damage         | ** ALL BRACKETS ** |          652 |             18.62 |                11.18
+ Parking damage         | 11–20 Pages        |          186 |             23.08 |                16.28
+ Parking damage         | 1–5 Pages          |          130 |             13.14 |                 2.43
+ Parking damage         | 21+ Pages          |            5 |             20.12 |                19.97
+ Parking damage         | 6–10 Pages         |          331 |             18.25 |                10.99
+(17 rows)
+
+  damage_type   | total_claims | audit_passed_claims | pct_claims_ending_audit_passed | payment_notified_claims | pct_claims_ending_payment_notified | rejected_claims | pct_claims_ending_rejected | high_touchpoint_claims | high_touchpoint_pct | resolved_within_3d_pct | zero_doc_claims 
+----------------+--------------+---------------------+--------------------------------+-------------------------+------------------------------------+-----------------+----------------------------+------------------------+---------------------+------------------------+-----------------
+ Rodent bites   |         1894 |                 681 |                           36.0 |                     702 |                               37.1 |              40 |                        2.1 |                    424 |                22.4 |                   51.2 |               0
+ Glass damage   |         1790 |                 626 |                           35.0 |                     730 |                               40.8 |              20 |                        1.1 |                    374 |                20.9 |                   55.9 |               1
+ Parking damage |          652 |                 205 |                           31.4 |                     168 |                               25.8 |              25 |                        3.8 |                    204 |                31.3 |                   28.2 |               0
+ Animal damage  |          301 |                  91 |                           30.2 |                     105 |                               34.9 |              13 |                        4.3 |                    118 |                39.2 |                   23.6 |               0
+ Hit & run      |           21 |                   4 |                           19.0 |                       8 |                               38.1 |               1 |                        4.8 |                     11 |                52.4 |                   23.8 |               0
+ Scorch damage  |           14 |                   5 |                           35.7 |                       4 |                               28.6 |               2 |                       14.3 |                      6 |                42.9 |                   35.7 |               0
+(6 rows)
+
+  damage_type   | total_claims | q1_duration | q3_duration | iqr_duration | upper_fence | outlier_claims | pct_outlier_claims | avg_outlier_duration | max_outlier_duration 
+----------------+--------------+-------------+-------------+--------------+-------------+----------------+--------------------+----------------------+----------------------
+ Rodent bites   |         2098 |        0.12 |       10.92 |        10.80 |       27.12 |            204 |               9.72 |                60.47 |               624.43
+ Glass damage   |         1976 |        0.06 |       10.99 |        10.93 |       27.38 |            186 |               9.41 |                62.06 |               738.27
+ Parking damage |          699 |        2.45 |       36.93 |        34.48 |       88.65 |             47 |               6.72 |               174.49 |               347.74
+ Animal damage  |          320 |        3.98 |       34.46 |        30.48 |       80.19 |             19 |               5.94 |               150.77 |               461.17
+ Scorch damage  |           16 |        2.40 |       25.54 |        23.13 |       60.24 |              2 |              12.50 |                67.64 |                73.10
+ Hit & run      |           22 |        4.00 |       29.04 |        25.04 |       66.61 |              1 |               4.55 |               142.95 |               142.95
+(6 rows)
+
+  damage_type   | sample_size | corr_pages_vs_duration | corr_events_vs_duration | corr_pages_vs_events 
+----------------+-------------+------------------------+-------------------------+----------------------
+ Rodent bites   |        1894 |                 0.3313 |                  0.3605 |               0.5514
+ Glass damage   |        1790 |                 0.2210 |                  0.3734 |               0.5248
+ Parking damage |         652 |                 0.2053 |                  0.3354 |               0.6004
+ Animal damage  |         301 |                 0.3332 |                  0.3869 |               0.6200
+ Hit & run      |          21 |                 0.1412 |                  0.2896 |               0.7265
+(5 rows)
+
+  page_bracket  | total_claims | pct_of_claims | avg_docs | avg_pages | mean_duration_days | median_duration_days | pct_claims_ending_audit_passed 
+----------------+--------------+---------------+----------+-----------+--------------------+----------------------+--------------------------------
+ 1–5 Pages      |         1206 |          25.8 |      2.1 |       4.2 |               4.31 |                 0.71 |                           31.2
+ 6–10 Pages     |         2767 |          59.2 |      3.0 |       7.6 |               7.41 |                 3.52 |                           35.9
+ 21+ Pages      |           13 |           0.3 |      8.2 |      22.9 |              15.33 |                 9.07 |                           23.1
+ 11–20 Pages    |          685 |          14.7 |      5.0 |      12.9 |              16.08 |                11.19 |                           35.2
+ No Docs Logged |            1 |           0.0 |      0.0 |       0.0 |              23.00 |                23.00 |                            0.0
+(5 rows)
+

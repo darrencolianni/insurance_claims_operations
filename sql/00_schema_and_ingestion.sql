@@ -164,8 +164,8 @@ CREATE TEMP TABLE stage_claim_summary (
 );
 
 -- Note: When running inside Docker / devcontainer:
-COPY stage_claim_summary FROM '/tmp/claim_summary.csv' WITH (FORMAT csv, HEADER true);
-COPY stage_process_log   FROM '/tmp/cleaned_process_log.csv' WITH (FORMAT csv, HEADER true);
+\copy stage_claim_summary FROM 'data/processed/claim_summary.csv' WITH (FORMAT csv, HEADER true);
+\copy stage_process_log   FROM 'data/processed/cleaned_process_log.csv' WITH (FORMAT csv, HEADER true);
 
 -- Ingest into target tables
 INSERT INTO claim_summary (

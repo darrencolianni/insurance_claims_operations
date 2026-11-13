@@ -9,6 +9,17 @@
             "database": "claims_analytics",
             "username": "claims_app",
             "name": "claims_analytics"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "Claims Analytics",
+            "database": "claims_analytics",
+            "username": "claims_app"
         }
     ]
 }

@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Insurance Claims Operations Analytics portfolio project using Python, PostgreSQL, and Power BI.">
+    <title>Insurance Claims Operations Analytics</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f3f4f6;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            color: #d1d5db;
+            font-size: 1.1rem;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: white;
+            padding: 28px;
+            margin-bottom: 24px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-bottom: 14px;
+            color: #1f2937;
+        }
+
+        p {
+            margin-bottom: 12px;
+        }
+
+        ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .links a {
+            display: inline-block;
+            margin: 8px 12px 0 0;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Insurance Claims Operations Analytics</h1>
+        <p>Analyzing insurance claim workflows with Python, PostgreSQL, and Power BI</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Project Overview</h2>
+            <p>
+                An end-to-end analytics project examining motor insurance claims
+                operations using historical process event-log data. The analysis
+                investigates claim processing times, workflow transitions,
+                document requirements, and operational bottlenecks.
+            </p>
+            <p>
+                The dataset contains 32,058 process events across 5,131 claims,
+                covering January 2014 through January 2020.
+            </p>
+        </section>
+
+        <section>
+            <h2>Technical Stack</h2>
+            <ul>
+                <li><strong>Python:</strong> Data cleaning, exploratory analysis, and statistical testing.</li>
+                <li><strong>PostgreSQL:</strong> Window functions, CTEs, process analysis, and reporting views.</li>
+                <li><strong>Power BI:</strong> Interactive dashboard and operational reporting.</li>
+                <li><strong>Docker:</strong> Reproducible development environment.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Key Findings</h2>
+            <ul>
+                <li>Glass damage and rodent bites account for 79.4% of claims.</li>
+                <li>Median claim lifecycle duration is 4.40 days, compared with a mean of 14.06 days.</li>
+                <li>50.3% of claims exhibit repeated state patterns, a proxy for potential rework.</li>
+                <li>Document request to damage documents has a median transition time of 8.02 days.</li>
+                <li>Document volume is positively associated with claim duration (Spearman ρ = 0.349).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Project Resources</h2>
+            <div class="links">
+                <a href="README.md">Project Documentation</a>
+                <a href="reports/claims_operations_eda_report.pdf">EDA Report (PDF)</a>
+                <a href="power_bi/claims_operations_dashboard.pbix">Power BI Dashboard</a>
+                <a href="notebooks/claims_operations_eda.ipynb">Python Notebook</a>
+                <a href="sql/">SQL Scripts</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Insurance Claims Operations Analytics | Portfolio Project</p>
+    </footer>
+</body>
+</html>
